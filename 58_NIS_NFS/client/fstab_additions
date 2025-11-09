@@ -1,0 +1,13 @@
+# /etc/fstab additions for NFS auto-mounting
+# Format: server:path mountpoint fstype options dump fsck
+
+# NFS shares for different groups
+nisserver.lab.com:/shared/developers /mnt/developers nfs defaults,_netdev 0 0
+nisserver.lab.com:/shared/admins     /mnt/admins     nfs defaults,_netdev 0 0
+nisserver.lab.com:/shared/common     /mnt/common     nfs ro,_netdev       0 0
+
+# Options explanation:
+# defaults - Use default mount options
+# _netdev - Mount after network is available
+# ro - Read-only mount
+# 0 0 - No dump, no fsck

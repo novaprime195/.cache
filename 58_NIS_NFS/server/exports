@@ -1,0 +1,14 @@
+# /etc/exports - NFS Server Export Configuration
+# Format: directory client(options)
+
+# Shared directories for different groups
+/shared/developers  192.168.1.0/24(rw,sync,no_root_squash,no_subtree_check)
+/shared/admins      192.168.1.0/24(rw,sync,no_root_squash,no_subtree_check)
+/shared/common      192.168.1.0/24(ro,sync,no_subtree_check)
+
+# Export options explanation:
+# rw - Read/Write access
+# ro - Read-only access
+# sync - Write data to disk before responding
+# no_root_squash - Don't map root user to anonymous
+# no_subtree_check - Disable subtree checking for better performance
