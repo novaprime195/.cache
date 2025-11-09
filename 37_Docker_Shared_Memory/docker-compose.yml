@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  memory-writer:
+    build: ./writer
+    volumes:
+      - shared-memory:/shared
+    
+  memory-reader:
+    build: ./reader
+    volumes:
+      - shared-memory:/shared
+    depends_on:
+      - memory-writer
+
+volumes:
+  shared-memory:

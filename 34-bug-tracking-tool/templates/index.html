@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐛 Bug Tracking System</h1>
+            <a href="{{ url_for('add_bug') }}" class="btn btn-primary">+ Report New Bug</a>
+        </header>
+        
+        <div class="bugs-list">
+            {% if bugs %}
+                {% for bug in bugs %}
+                <div class="bug-card">
+                    <div class="bug-header">
+                        <h3>Bug #{{ bug.id }}: {{ bug.title }}</h3>
+                        <span class="priority priority-{{ bug.priority.lower() }}">{{ bug.priority }}</span>
+                    </div>
+                    <p class="bug-description">{{ bug.description }}</p>
+                    <div class="bug-footer">
+                        <span class="status status-{{ bug.status.lower() }}">{{ bug.status }}</span>
+                        <span class="date">{{ bug.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                        <div class="actions">
+                            <form method="POST" action="{{ url_for('update_status', id=bug.id) }}" style="display: inline;">
+                                <select name="status" onchange="this.form.submit()">
+                                    <option value="Open" {% if bug.status == 'Open' %}selected{% endif %}>Open</option>
+                                    <option value="In Progress" {% if bug.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                                    <option value="Resolved" {% if bug.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                                    <option value="Closed" {% if bug.status == 'Closed' %}selected{% endif %}>Closed</option>
+                                </select>
+                            </form>
+                            <a href="{{ url_for('delete_bug', id=bug.id) }}" class="btn-delete" onclick="return confirm('Delete this bug?')">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-bugs">
+                    <p>No bugs reported yet! 🎉</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

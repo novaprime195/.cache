@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bug Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        h1 { color: #333; }
+        .form-container { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .bug-list { background: white; padding: 20px; border-radius: 8px; }
+        .bug-item { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 4px; }
+        .bug-header { display: flex; justify-content: space-between; align-items: center; }
+        .status { padding: 5px 10px; border-radius: 4px; font-size: 12px; }
+        .status.Open { background: #ffc107; color: black; }
+        .status.InProgress { background: #17a2b8; color: white; }
+        .status.Closed { background: #28a745; color: white; }
+        .priority { font-weight: bold; }
+        .High { color: #dc3545; }
+        .Medium { color: #ffc107; }
+        .Low { color: #28a745; }
+        .actions { margin-top: 10px; }
+        .actions a { margin-right: 10px; padding: 5px 10px; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-size: 12px; }
+        .actions a:hover { background: #545b62; }
+    </style>
+</head>
+<body>
+    <h1>🐛 Bug Tracking System</h1>
+    
+    <div class="form-container">
+        <h2>Report New Bug</h2>
+        <form action="/add" method="post">
+            <input type="text" name="title" placeholder="Bug Title" required>
+            <textarea name="description" rows="3" placeholder="Bug Description" required></textarea>
+            <select name="priority" required>
+                <option value="">Select Priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <button type="submit">Submit Bug</button>
+        </form>
+    </div>
+
+    <div class="bug-list">
+        <h2>Bug List ({{ bugs|length }} total)</h2>
+        {% for bug in bugs %}
+        <div class="bug-item">
+            <div class="bug-header">
+                <h3>#{{ bug.id }} - {{ bug.title }}</h3>
+                <span class="status {{ bug.status.replace(' ', '') }}">{{ bug.status }}</span>
+            </div>
+            <p>{{ bug.description }}</p>
+            <p><strong>Priority:</strong> <span class="priority {{ bug.priority }}">{{ bug.priority }}</span></p>
+            <p><small>Created: {{ bug.created_at }}</small></p>
+            <div class="actions">
+                {% if bug.status != 'Open' %}<a href="/update/{{ bug.id }}/Open">Mark as Open</a>{% endif %}
+                {% if bug.status != 'In Progress' %}<a href="/update/{{ bug.id }}/In Progress">Mark as In Progress</a>{% endif %}
+                {% if bug.status != 'Closed' %}<a href="/update/{{ bug.id }}/Closed">Mark as Closed</a>{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

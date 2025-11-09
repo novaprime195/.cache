@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report New Bug</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐛 Report New Bug</h1>
+            <a href="{{ url_for('index') }}" class="btn">← Back to List</a>
+        </header>
+        
+        <div class="form-container">
+            <form method="POST" action="{{ url_for('add_bug') }}">
+                <div class="form-group">
+                    <label for="title">Bug Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="6" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Bug Report</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
