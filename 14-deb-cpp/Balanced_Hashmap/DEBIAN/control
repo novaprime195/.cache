@@ -1,0 +1,5 @@
+Package: balanced-hashmap
+Version: 0.2
+Maintainer: User_Name
+Architecture: all
+Description: A balanced hashmap in cpp

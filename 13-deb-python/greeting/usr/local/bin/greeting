@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+
+def main():
+    name = input("Enter your name: ")
+    print(f"Hello, {name}! Welcome to your Debian-packaged Python greeting script.")
+
+if __name__ == "__main__":
+    main()

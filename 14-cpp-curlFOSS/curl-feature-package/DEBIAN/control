@@ -1,0 +1,8 @@
+Package: curl-feature-package
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libcurl4
+Maintainer: Your Name <your.email@example.com>
+Description: A feature package for CURL using curl_easy_perform
